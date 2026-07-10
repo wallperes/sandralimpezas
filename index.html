@@ -475,7 +475,7 @@
         let fabOpen = false;
 
         // URL e Token do Webhook do Google Apps Script
-        const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycbxU5oocvMKak3kdV6xDd9BjryTVALaMKDJVE_X8KANdj8cBGBNvW_4yf11a8h5xI4a4/exec";
+        const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycby4kaYDn4JrYN9c_vJ-ZnSpgdXZCD-C9TcfyiNCxiUhqAtUtkMmfjLabd1hvYOixDRE/exec";
         const TOKEN_SECRETO = "SenhaSuperSegura123!";
 
         window.onload = () => {
@@ -560,7 +560,6 @@
             document.getElementById('loading-modal').classList.add('hidden');
         }
 
-        // Envio simplificado da Ficha Técnica por texto para o WhatsApp
         function submeterFichaTabela() {
             const form = document.getElementById('form-ficha');
             const data = new FormData(form);
@@ -571,7 +570,6 @@
             window.open(`https://wa.me/5521969293505?text=${encodeURIComponent(texto)}`, '_blank');
         }
 
-        // MOTOR INTELIGENTE: Consulta a agenda, decide o fluxo e gera as mensagens dinâmicas
         async function executarAgendamentoInteligente() {
             const modal = document.getElementById('loading-modal');
             const loadState = document.getElementById('loading-state');
@@ -597,11 +595,9 @@
                 return;
             }
 
-            // Formatação de data padrão Brasil
             const dataBr = dataLimpeza.split('-').reverse().join('/');
             const horarioTxt = `das ${hInicio} às ${hFim}`;
 
-            // Criação das strings RFC3339 necessárias para a API do calendário
             const isoInicio = `${dataLimpeza}T${hInicio}:00`;
             const isoFim = `${dataLimpeza}T${hFim}:00`;
 
