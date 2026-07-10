@@ -65,6 +65,7 @@
 </head>
 <body class="pb-24">
 
+    <!-- Navegação Superior -->
     <nav class="sticky top-0 z-50 glass border-b border-slate-200 px-4 py-3 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-title text-xl shadow-inner">S</div>
@@ -76,8 +77,10 @@
         <div id="save-indicator" class="text-[10px] bg-teal-50 text-teal-700 px-2 py-1 rounded-full font-bold opacity-0 transition-opacity border border-teal-100">Salvo ✓</div>
     </nav>
 
+    <!-- App Container -->
     <main id="app-content" class="w-full max-w-md md:max-w-2xl mx-auto px-4 lg:px-8 pt-6 transition-all duration-300">
         
+        <!-- Ecrã de Boas-vindas -->
         <section id="welcome-screen" class="space-y-6 animate-fade-in">
             <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-teal-500"></div>
@@ -98,6 +101,7 @@
             </button>
         </section>
 
+        <!-- Módulo 1: Ficha Técnica (Wizard) -->
         <section id="ficha-module" class="hidden animate-fade-in">
             <div class="mb-8">
                 <div class="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
@@ -110,6 +114,7 @@
             </div>
 
             <form id="form-ficha" class="space-y-6 bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200">
+                <!-- Passo 1: Identificação -->
                 <div class="wizard-step" data-step="1">
                     <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Identificação do Imóvel 📍</h3>
                     <div class="bg-amber-50 border border-amber-200 p-4 mb-6 rounded-xl">
@@ -159,6 +164,7 @@
                     </div>
                 </div>
 
+                <!-- Passo 2: Equipamentos -->
                 <div class="wizard-step hidden" data-step="2">
                     <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Equipamentos e Materiais 🧹</h3>
                     <div class="space-y-5">
@@ -185,6 +191,7 @@
                     </div>
                 </div>
 
+                <!-- Passo 3: Quartos -->
                 <div class="wizard-step hidden" data-step="3">
                     <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Quartos e Roupa de Cama 🛏️</h3>
                     <div class="space-y-5">
@@ -203,6 +210,7 @@
                     </div>
                 </div>
 
+                <!-- Passo 4: Banheiros -->
                 <div class="wizard-step hidden" data-step="4">
                     <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Banheiros e Amenities 🧴</h3>
                     <div class="space-y-5">
@@ -217,6 +225,7 @@
                     </div>
                 </div>
 
+                <!-- Passo 5: Cozinha -->
                 <div class="wizard-step hidden" data-step="5">
                     <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Cozinha e Geladeira 🍽️</h3>
                     <div class="space-y-5">
@@ -253,6 +262,7 @@
                     </div>
                 </div>
 
+                <!-- Passo 6: Finalização -->
                 <div class="wizard-step hidden" data-step="6">
                     <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Finalização e Detalhes ✨</h3>
                     <div class="space-y-5">
@@ -283,6 +293,7 @@
                     </div>
                 </div>
 
+                <!-- Navegação do Wizard -->
                 <div class="flex gap-3 pt-6">
                     <button type="button" id="prevBtn" onclick="changeStep(-1)" class="hidden flex-[1] bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold transition-all hover:bg-slate-200">Voltar</button>
                     <button type="button" id="nextBtn" onclick="changeStep(1)" class="flex-[2] btn-primary py-4 rounded-2xl font-bold text-lg">Próximo Passo</button>
@@ -291,9 +302,11 @@
             </form>
         </section>
 
+        <!-- Módulo 2: Agendar Limpeza -->
         <section id="agenda-module" class="hidden animate-fade-in">
             <h3 class="text-xl font-title text-slate-800 mb-5 px-1">Solicitação de Limpeza 📅</h3>
             
+            <!-- CALENDÁRIO -->
             <div class="mb-6 bg-white p-2 rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="px-3 py-3 bg-slate-50 rounded-t-2xl mb-2 border-b border-slate-100">
                     <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Disponibilidade na Agenda</p>
@@ -417,6 +430,7 @@
         </section>
     </main>
 
+    <!-- Menu Flutuante Expansível (FAB) -->
     <div id="bottom-nav" class="fixed bottom-6 right-4 sm:right-8 z-50 hidden flex-col items-end gap-3 pointer-events-none">
         <div id="fab-options" class="flex flex-col items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none origin-bottom">
             <button onclick="navigate('home')" id="nav-home" class="w-12 h-12 glass border border-teal-100 shadow-xl rounded-full flex flex-col items-center justify-center transition-all text-slate-400 hover:bg-teal-50 active:scale-95 pointer-events-auto relative group">
@@ -435,6 +449,7 @@
         </button>
     </div>
 
+    <!-- Modal de Resposta Inteligente -->
     <div id="loading-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex flex-col items-center justify-center p-6 text-white text-center">
         <div id="loading-state" class="flex flex-col items-center">
             <div class="w-14 h-14 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mb-6"></div>
@@ -442,11 +457,12 @@
             <p class="text-sm text-slate-300 mt-2">Aguarde um instante</p>
         </div>
         
+        <!-- Tela de Sucesso: Vaga Livre -->
         <div id="success-state" class="hidden flex-col items-center w-full max-w-sm">
             <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">✓</div>
             <h3 class="text-2xl font-bold mb-2">Horário Disponível! 🎉</h3>
             <div class="bg-white/10 text-white p-4 rounded-xl border border-white/20 w-full mb-6 text-sm backdrop-blur-md">
-                O horário solicitado estava livre e já foi **pré-reservado como pendente** na agenda. Avise a Sandra agora mesmo!
+                O horário solicitado estava livre e já foi pré-reservado como pendente na agenda. Avise a Sandra agora mesmo!
             </div>
             <button id="btn-final-share" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 text-white" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
                 💬 Enviar Confirmação por WhatsApp
@@ -454,6 +470,7 @@
             <button onclick="closeModal()" class="text-slate-300 text-sm py-2 hover:text-white transition-colors">Voltar</button>
         </div>
 
+        <!-- Tela de Alerta: Conflito de Horário -->
         <div id="conflict-state" class="hidden flex-col items-center w-full max-w-sm">
             <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">⚠️</div>
             <h3 class="text-2xl font-bold mb-2">Horário Ocupado</h3>
@@ -474,8 +491,8 @@
         const storageKey = 'sandra_app_data';
         let fabOpen = false;
 
-        // URL do Google Apps Script que você implantou como "Qualquer pessoa"
-        const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycbzQy_O8w9C03O2Sg3wH2t6Yj59RzK9wR7f3l4m/exec";
+        // URL e Token do Webhook do Google Apps Script
+        const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycbwaYmLZgk9qdEfGKrZr_W81yupkiHlVFGMIebkGTLW8URWR7TzyVFR_ejyblAmfYR31/exec";
         const TOKEN_SECRETO = "SenhaSuperSegura123!";
 
         window.onload = () => {
@@ -572,7 +589,7 @@
         }
 
         // MOTOR INTELIGENTE: Consulta a agenda, decide o fluxo e gera as mensagens dinâmicas
-        async function ejecutarAgendamentoInteligente() {
+        async function executarAgendamentoInteligente() {
             const modal = document.getElementById('loading-modal');
             const loadState = document.getElementById('loading-state');
             const successState = document.getElementById('success-state');
