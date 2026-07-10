@@ -6,10 +6,6 @@
     <title>Sandra | Gestão de Limpezas Airbnb</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Bibliotecas para gerar PDF Nativo (Textos Selecionáveis) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -69,7 +65,6 @@
 </head>
 <body class="pb-24">
 
-    <!-- Navegação Superior -->
     <nav class="sticky top-0 z-50 glass border-b border-slate-200 px-4 py-3 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-title text-xl shadow-inner">S</div>
@@ -81,19 +76,17 @@
         <div id="save-indicator" class="text-[10px] bg-teal-50 text-teal-700 px-2 py-1 rounded-full font-bold opacity-0 transition-opacity border border-teal-100">Salvo ✓</div>
     </nav>
 
-    <!-- App Container (Recuperamos o espaço lateral total) -->
     <main id="app-content" class="w-full max-w-md md:max-w-2xl mx-auto px-4 lg:px-8 pt-6 transition-all duration-300">
         
-        <!-- Ecrã de Boas-vindas -->
         <section id="welcome-screen" class="space-y-6 animate-fade-in">
             <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-teal-500"></div>
-                <h2 class="font-title text-2xl text-slate-800 mb-4 mt-2">Olá, eu sou a Sandra! </h2>
+                <h2 class="font-title text-2xl text-slate-800 mb-4 mt-2">Olá, eu sou a Sandra! 🏠✨</h2>
                 <p class="text-slate-600 leading-relaxed text-sm mb-4">
                     Muito prazer em receber você aqui. Com a minha experiência no cuidado e limpeza de imóveis de temporada, aprendi que a higienização é o coração de uma avaliação 5 estrelas.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-sm">
-                    Criei esta ficha para entender cada detalhe do seu espaço. Sei que são várias perguntas, mas as respostas permitem registrar o seu padrão de trabalho e garantir que tudo saia exatamente como você gosta. Quando puder, preencha com calma e me envie a Ficha que será gerada por WhatsApp. Obrigada pela confiança! 
+                    Este espaço serve para organizar de forma automática os nossos agendamentos e manter registrado o padrão de qualidade do seu imóvel. Escolha uma das opções abaixo para prosseguirmos!
                 </p>
             </div>
             
@@ -105,9 +98,7 @@
             </button>
         </section>
 
-        <!-- Módulo 1: Ficha Técnica (Wizard) -->
         <section id="ficha-module" class="hidden animate-fade-in">
-            <!-- Progress Bar -->
             <div class="mb-8">
                 <div class="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
                     <span id="step-label">Passo 1 de 6</span>
@@ -119,11 +110,10 @@
             </div>
 
             <form id="form-ficha" class="space-y-6 bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200">
-                <!-- Passo 1: Identificação -->
                 <div class="wizard-step" data-step="1">
-                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Identificação do Imóvel </h3>
+                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Identificação do Imóvel 📍</h3>
                     <div class="bg-amber-50 border border-amber-200 p-4 mb-6 rounded-xl">
-                        <p class="text-xs text-amber-800 font-medium"><span class="font-bold"> Dica:</span> Caso não saiba o CEP, ignore esse campo e continue preenchendo o restante da ficha. Se souber, o endereço será preenchido automaticamente!</p>
+                        <p class="text-xs text-amber-800 font-medium"><span class="font-bold">💡 Dica:</span> Caso não saiba o CEP, ignore esse campo e continue preenchendo o restante da ficha. Se souber, o endereço será preenchido automaticamente!</p>
                     </div>
                     <div class="space-y-5">
                         <div class="group">
@@ -146,365 +136,335 @@
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">Número </label>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Número 🔢</label>
                                 <input type="text" name="numero" class="input-base">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">Complemento (Casa, Apto...)</label>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Complemento</label>
                                 <input type="text" name="complemento" class="input-base">
                             </div>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Qual é o nome do Edifício ou Condomínio?  (Ex: Rio Wonder)</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Qual é o nome do Edifício ou Condomínio?🏢</label>
                             <input type="text" name="edificio" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Qual o nome do proprietário ou responsável por esse imóvel? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Qual o nome do proprietário ou responsável?👤</label>
                             <input type="text" name="proprietario" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Como é a configuração do seu imóvel? Quantos quartos, banheiros e varandas ele possui? (Se for Studio, basta escrever 'Studio') </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Como é a configuração do seu imóvel?🏠</label>
                             <textarea name="configuracao" rows="2" class="input-base"></textarea>
                         </div>
                     </div>
                 </div>
 
-                <!-- Passo 2: Equipamentos -->
                 <div class="wizard-step hidden" data-step="2">
-                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Equipamentos e Materiais </h3>
+                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Equipamentos e Materiais 🧹</h3>
                     <div class="space-y-5">
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Aí no apartamento tem um aspirador de pó funcionando direitinho? Ah, e a voltagem das tomadas é 110v ou 220v? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Tem um aspirador de pó funcionando? Qual a voltagem?🔌</label>
                             <textarea name="aspirador" rows="2" class="input-base"></textarea>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Posso contar com vassoura, rodo, balde, panos e escadinha aí no apto?</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Posso contar com vassoura, rodo, balde e panos?</label>
                             <textarea name="materiais_basicos" rows="2" class="input-base"></textarea>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Sobre os produtos de limpeza: prefere que eu use o meu kit ou você fornece? Se você deixa os produtos, há alguma instrução especial de como gosta que os use? Ex: 'Tenho um Cheirinho de Ambiente específico que deixo aí. Peço que passe o spray nas roupas de cama e cortinas'</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Instruções ou preferências sobre produtos de limpeza:</label>
                             <textarea name="produtos_instrucao" rows="2" class="input-base"></textarea>
                         </div>
                         <div class="bg-red-50 p-4 rounded-xl border border-red-100">
-                            <label class="block text-sm font-bold text-red-700 mb-2">IMPORTANTE: tem algum produto que é PROIBIDO ou que não queira que seja usado nos pisos, nas bancadas ou nos móveis? </label>
-                            <textarea name="proibidos" rows="2" class="input-base border-red-200 focus:border-red-500 focus:ring-red-500 bg-white text-red-900"></textarea>
+                            <label class="block text-sm font-bold text-red-700 mb-2">Tem algum produto que é PROIBIDO nos móveis ou pisos?🚫</label>
+                            <textarea name="proibidos" rows="2" class="input-base border-red-200 focus:border-red-500 bg-white text-red-900"></textarea>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">E sobre os ventiladores: tem ventilador de teto? Se sim, quantos? E de chão, tem algum? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Sobre ventiladores (teto e chão):🌬️</label>
                             <input type="text" name="ventiladores" class="input-base">
                         </div>
                     </div>
                 </div>
 
-                <!-- Passo 3: Quartos -->
                 <div class="wizard-step hidden" data-step="3">
-                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Quartos e Roupa de Cama </h3>
+                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Quartos e Roupa de Cama 🛏️</h3>
                     <div class="space-y-5">
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde você costuma guardar as roupas de cama e banho limpas? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde costuma guardar as roupas de cama limpas?🧺</label>
                             <input type="text" name="guarda_enxoval" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde deixo a roupa suja que os hóspedes usaram?</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde deixo a roupa suja retirada?</label>
                             <input type="text" name="roupa_suja" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Como você prefere que eu monte as camas? Quantos travesseiros? Edredom? Lençol de elástico? Peço para me contar com detalhes como é sua forma de trabalho.</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Como prefere que monte as camas? Detalhe seu padrão:</label>
                             <textarea name="montagem_camas" rows="3" class="input-base"></textarea>
                         </div>
                     </div>
                 </div>
 
-                <!-- Passo 4: Banheiros -->
                 <div class="wizard-step hidden" data-step="4">
-                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Banheiros e Amenities </h3>
+                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Banheiros e Amenities 🧴</h3>
                     <div class="space-y-5">
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Para o sabonete, shampoo e condicionador: você oferece? Quais oferece e onde ficam os itens de reposição? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Oferece sabonete/shampoo? Onde fica a reposição?</label>
                             <textarea name="amenities" rows="2" class="input-base"></textarea>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde você prefere que eu deixe as toalhas limpas? (Em cima da cama, no rack do banheiro...)</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde prefere que eu posicione as toalhas limpas?🛁</label>
                             <input type="text" name="toalhas_posicao" class="input-base">
                         </div>
                     </div>
                 </div>
 
-                <!-- Passo 5: Cozinha -->
                 <div class="wizard-step hidden" data-step="5">
-                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Cozinha e Geladeira </h3>
+                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Cozinha e Geladeira 🍽️</h3>
                     <div class="space-y-5">
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Se tiver sobrado comida ou bebida dos hóspedes anteriores na geladeira, o que eu faço? Jogo tudo fora ou mantenho o que estiver fechado/lacrado? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">O que fazer com as sobras de alimentos na geladeira?🧊</label>
                             <textarea name="sobras_geladeira" rows="2" class="input-base"></textarea>
                         </div>
 
                         <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
-                            <label class="block text-sm font-bold text-slate-800 mb-4">Quais eletrodomésticos e equipamentos ficam disponíveis na cozinha para os hóspedes? Pode marcar tudo o que tiver na casa: </label>
+                            <label class="block text-sm font-bold text-slate-800 mb-4">Eletrodomésticos disponíveis na cozinha para os hóspedes:</label>
                             <div class="grid grid-cols-2 gap-3 text-sm text-slate-700">
                                 <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Fogão tradicional" class="accent-teal-600"> Fogão</label>
                                 <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Cooktop" class="accent-teal-600"> Cooktop</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Forno (elétrico/gás)" class="accent-teal-600"> Forno</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Forno" class="accent-teal-600"> Forno</label>
                                 <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Micro-ondas" class="accent-teal-600"> Micro-ondas</label>
                                 <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Airfryer" class="accent-teal-600"> Airfryer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Panela elétrica arroz" class="accent-teal-600"> Pan. Arroz</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Panela pressão elétrica" class="accent-teal-600"> Pan. Pressão</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Filtro / Purificador" class="accent-teal-600"> Filtro</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Coifa / Exaustor" class="accent-teal-600"> Coifa</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Sanduicheira / Grill" class="accent-teal-600"> Sanduicheira</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Filtro de água" class="accent-teal-600"> Filtro</label>
                                 <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Liquidificador" class="accent-teal-600"> Liquidificador</label>
                                 <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Cafeteira" class="accent-teal-600"> Cafeteira</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Torradeira" class="accent-teal-600"> Torradeira</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Chaleira elétrica" class="accent-teal-600"> Chaleira elét.</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Batedeira" class="accent-teal-600"> Batedeira</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="equip" value="Lava-louças" class="accent-teal-600"> Lava-louças</label>
                             </div>
                             <div class="mt-5 pt-4 border-t border-slate-200">
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Outros equipamentos?</label>
-                                <input type="text" name="equip_outros" placeholder="Ex: Nespresso, Espremedor..." class="input-base">
+                                <label class="block text-xs font-bold text-slate-500 mb-2">Outros equipamentos?</label>
+                                <input type="text" name="equip_outros" placeholder="Ex: Nespresso, Torradeira..." class="input-base">
                             </div>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Para a gente manter o controle: você deixa um número exato de pratos, copos e talheres (facas, garfos, colheres de sopa e de sobremesa)? Se sim, me passa as quantidades para eu conferir na hora da limpeza e te avisar se faltar algo! 🍽️</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Deixa controle de quantidades exatas de pratos e talheres?</label>
                             <input type="text" name="quantidades_louca" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Tem mais algum detalhe na cozinha que eu deva deixar para os hóspedes (sal, açucar) ou algo que queira me contar?</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Algum detalhe extra sobre a dinâmica da cozinha?</label>
                             <textarea name="cozinha_extras" rows="2" class="input-base"></textarea>
                         </div>
                     </div>
                 </div>
 
-                <!-- Passo 6: Finalização -->
                 <div class="wizard-step hidden" data-step="6">
-                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Finalização e Detalhes </h3>
+                    <h3 class="text-xl font-title text-slate-800 mb-4 border-b border-slate-100 pb-3">Finalização e Detalhes ✨</h3>
                     <div class="space-y-5">
-                        
-                        <!-- SESSÃO DE SUJEIRA EXTREMA -->
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">E sobre louça em excesso ou sujeira em excesso deixada pelos hóspedes (lixo espalhado, manchas, desordem)? </label>
-                            <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 mb-3">
-                                <p class="text-[12px] text-amber-900 leading-relaxed">
-                                    <strong>Importante:</strong> O valor da limpeza cobre a preparação padrão do imóvel, não contemplando sujeira excessiva em nenhum cômodo (o padrão Airbnb, por exemplo, exige que o hóspede mantenha a ordem básica e lave o excesso da louça). Caso a sujeira seja excessiva, será necessário cobrar um adicional pelo tempo extra de trabalho. 
-                                </p>
-                            </div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Preferência em casos de Louça ou Sujeira Extrema:</label>
                             <select name="sujeira_extrema" class="input-base bg-white text-sm">
-                                <option value="">Selecione a preferência...</option>
-                                <option value="Apenas tirar fotos para cobrar do hóspede na plataforma">Me avise e mande fotos/vídeos antes de começar (para eu cobrar do hóspede)</option>
-                                <option value="Limpar tudo (Aceito pagar taxa extra pelo esforço/tempo)">Me avise e mande fotos/vídeos, mas pode limpar tudo e cobrar o adicional pelo seu tempo extra</option>
-                                <option value="Fazer apenas o padrão e fotografar o restante">Limpe apenas o básico e me mande fotos/vídeos do que ficou para eu resolver</option>
+                                <option value="">Selecione...</option>
+                                <option value="Fotografar e enviar para eu cobrar taxa do hóspede">Me mandar fotos antes (para eu cobrar do hóspede)</option>
+                                <option value="Pode limpar tudo e cobrar a taxa extra de tempo">Pode limpar tudo e cobrar o adicional de tempo</option>
                             </select>
                         </div>
-
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Se houver mimos de boas vindas, (chocolates, biscoitos, etc) onde ficam guardados? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde ficam guardados os mimos de boas-vindas?🍬</label>
                             <input type="text" name="mimos" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Ao terminar e fechar a porta, como devo deixar o ambiente? (Ex: cortinas abertas ou fechadas, luzes acessas ou apagadas?) 🌬️</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Regras ao fechar a porta (luzes, cortinas, AC):</label>
                             <textarea name="fechamento" rows="2" class="input-base"></textarea>
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Onde eu faço o descarte final de todo o lixo aí no prédio? 🗑️</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Local de descarte final de lixo do prédio:🗑️</label>
                             <input type="text" name="lixo_descarte" class="input-base">
                         </div>
                         <div class="group">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Deseja acrescentar alguma observação importante ou detalhe que ainda não conversamos? </label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Alguma observação geral complementar?📝</label>
                             <textarea name="obs_finais" rows="3" class="input-base"></textarea>
                         </div>
                     </div>
                 </div>
 
-                <!-- Navegação do Wizard -->
                 <div class="flex gap-3 pt-6">
                     <button type="button" id="prevBtn" onclick="changeStep(-1)" class="hidden flex-[1] bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold transition-all hover:bg-slate-200">Voltar</button>
                     <button type="button" id="nextBtn" onclick="changeStep(1)" class="flex-[2] btn-primary py-4 rounded-2xl font-bold text-lg">Próximo Passo</button>
-                    <button type="button" id="submitFicha" onclick="generateReport('ficha')" class="hidden flex-[2] btn-primary py-4 rounded-2xl font-bold text-lg"> Gerar PDF</button>
+                    <button type="button" id="submitFicha" onclick="submeterFichaTabela()" class="hidden flex-[2] btn-primary py-4 rounded-2xl font-bold text-lg">💾 Enviar Ficha</button>
                 </div>
             </form>
         </section>
 
-        <!-- Módulo 2: Agendar Limpeza -->
         <section id="agenda-module" class="hidden animate-fade-in">
-            <h3 class="text-xl font-title text-slate-800 mb-5 px-1">Solicitação de Limpeza </h3>
+            <h3 class="text-xl font-title text-slate-800 mb-5 px-1">Solicitação de Limpeza 📅</h3>
             
-            <!-- CALENDÁRIO -->
             <div class="mb-6 bg-white p-2 rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="px-3 py-3 bg-slate-50 rounded-t-2xl mb-2 border-b border-slate-100">
                     <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Disponibilidade na Agenda</p>
-                    <p class="text-[13px] text-slate-600 leading-snug">
-                         Para verificar outras semanas ou datas, clique nas setinhas para <strong>&lt; (esquerda)</strong> ou <strong>&gt; (direita)</strong> na parte superior do calendário.
-                    </p>
+                    <p class="text-xs text-slate-600">Verifique os horários livres antes de fazer o seu pedido abaixo.</p>
                 </div>
-                <iframe src="https://calendar.google.com/calendar/embed?src=sandramjo26%40gmail.com&mode=WEEK&ctz=America%2FSao_Paulo" style="border: 0" width="100%" height="550" frameborder="0" scrolling="no"></iframe>
+                <iframe src="https://calendar.google.com/calendar/embed?src=sandramjo26%40gmail.com&mode=WEEK&ctz=America%2FSao_Paulo" style="border: 0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
             </div>
 
             <form id="form-agenda" class="space-y-5 bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200">
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Me tira uma dúvida rápida: já fez a Ficha do Imóvel desse seu imóvel antes, ou é a nossa primeira vez lá? </label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Já fez a Ficha do Imóvel antes?📝</label>
                     <select name="cliente_tipo" class="input-base bg-white">
-                        <option value="">Selecione...</option>
                         <option value="Já fizemos a Ficha">Já fizemos a Ficha do Imóvel</option>
                         <option value="Primeira vez">É a nossa primeira vez</option>
                     </select>
                 </div>
 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Me informe o condomínio, torre e o número do apartamento  (Ex: Torre Formosa, Apto 509)</label>
-                    <input type="text" name="condominio_torre" class="input-base">
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Condomínio, torre e número do apartamento 🏢</label>
+                    <input type="text" name="condominio_torre" class="input-base" placeholder="Ex: Rio Wonder, Torre 1, Apto 509">
                 </div>
                 
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="group">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Qual é a data gostaria de reservar? 🗓️✅</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Data Desejada 🗓️</label>
                         <input type="date" name="data_limpeza" class="input-base text-slate-600">
                     </div>
                     <div class="group">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Qual o horário? </label>
-                        <input type="text" name="horario_limpeza" placeholder="Ex: 11h às 14h" class="input-base">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Horário Início 🕒</label>
+                        <select name="hora_inicio" class="input-base bg-white">
+                            <option value="08:00">08:00</option><option value="09:00">09:00</option><option value="10:00">10:00</option>
+                            <option value="11:00" selected>11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option>
+                        </select>
+                    </div>
+                    <div class="group">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Horário Fim 🕒</label>
+                        <select name="hora_fim" class="input-base bg-white">
+                            <option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option><option value="14:00" selected>14:00</option><option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 border-l-4 border-l-blue-400">
-                    <p class="text-xs text-blue-800 leading-relaxed"> <strong>Aviso:</strong> É desejável dispor de 3 horas para uma limpeza com nosso padrão de qualidade. No entanto, é possível realizar em 2 horas caso seja necessário.</p>
-                </div>
-
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Tem hóspedes saindo no mesmo dia da faxina (check-out)?</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Tem hóspedes fazendo check-out no mesmo dia?</label>
                     <select name="tem_checkout" onchange="toggleCheckout(this.value)" class="input-base bg-white">
                         <option value="Não">Não, o apartamento já está vazio</option>
                         <option value="Sim">Sim, saem no mesmo dia</option>
                     </select>
                 </div>
 
-                <div id="checkout-time-box" class="hidden animate-fade-in group">
-                    <label class="block text-sm font-bold text-teal-600 mb-2">Qual é o horário limite de saída (check-out) dos hóspedes anteriores?</label>
-                    <input type="text" name="horario_checkout" placeholder="Ex: 11:00" class="input-base border-teal-200 focus:border-teal-500 bg-teal-50/30">
+                <div id="checkout-time-box" class="hidden group">
+                    <label class="block text-sm font-bold text-teal-600 mb-2">Horário limite de saída (check-out) dos hóspedes anteriores:</label>
+                    <input type="text" name="horario_checkout" placeholder="Ex: 11:00" class="input-base">
                 </div>
 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Entrarão novos hóspedes no mesmo dia dessa solicitação de limpeza? </label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Entrarão novos hóspedes no mesmo dia? Doors</label>
                     <select name="tem_checkin" onchange="toggleCheckin(this.value)" class="input-base bg-white">
                         <option value="Não">Não, o apartamento ficará vazio</option>
                         <option value="Sim">Sim, entram no mesmo dia</option>
                     </select>
                 </div>
 
-                <div id="checkin-time-box" class="hidden animate-fade-in group">
-                    <label class="block text-sm font-bold text-teal-600 mb-2">Qual o horário previsto de entrada (check-in) dos novos hóspedes? </label>
-                    <input type="text" name="horario_checkin" placeholder="Ex: 15:00" class="input-base border-teal-200 focus:border-teal-500 bg-teal-50/30">
+                <div id="checkin-time-box" class="hidden group">
+                    <label class="block text-sm font-bold text-teal-600 mb-2">Horário previsto de entrada (check-in) dos novos hóspedes:</label>
+                    <input type="text" name="horario_checkin" placeholder="Ex: 15:00" class="input-base">
                 </div>
 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Como vai ser a minha entrada no dia dessa limpeza? 🔑 (Chave na portaria, senha na porta, cofre...) e se for senha, qual a senha?</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Como será minha entrada no imóvel?🔑 (Senhas/Chaves)</label>
                     <textarea name="entrada_metodo" rows="2" class="input-base"></textarea>
                 </div>
                 
-                <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Quantas pessoas entram nessa reserva? 👥 (Pergunto só para eu ter uma ideia do que será necessário preparar)</label>
-                    <input type="number" name="num_pessoas" class="input-base">
-                </div>
-
-                <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Houve algum animal de estimação hospedado na última reserva? (Se sim, isso me ajuda a planejar tempo extra para o seu imóvel).</label>
-                    <input type="text" name="teve_pet" placeholder="Ex: Não / Sim, um cachorro" class="input-base">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="group">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Qtd. Pessoas 👥</label>
+                        <input type="number" name="num_pessoas" class="input-base">
+                    </div>
+                    <div class="group">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Teve Pet nesta reserva?</label>
+                        <input type="text" name="teve_pet" placeholder="Não / Sim" class="input-base">
+                    </div>
                 </div>
                 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Quantas toalhas de banho e de rosto eu devo separar no total? 🛁</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Quantas toalhas de banho e de rosto no total?🛁</label>
                     <input type="text" name="toalhas_reserva" class="input-base">
                 </div>
 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Quantas camas eu preciso preparar dessa vez? E deixo quantos travesseiros e cobertores? Peço que me fale tudo sobre as roupas de cama, incluindo se devo usar cobre leitos, edredoms, etc 🛏️</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Quantas camas preparar? Detalhe o enxoval:🛏️</label>
                     <textarea name="camas_preparo" rows="2" class="input-base"></textarea>
                 </div>
                 
-                <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Quantos rolos de papel higiênico, sabonetes e shampoos eu devo deixar no total? 🧻🧴</label>
-                    <input type="text" name="reposicao_banho" class="input-base">
-                </div>
-                
-                <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Tem algum 'mimo' especial para essa reserva (chocolates, biscoitos, cápsulas de café)? Quantos eu deixo preparados? 🍬</label>
-                    <input type="text" name="reposicao_mimos" class="input-base">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Qtd. Papel / Sabonete 🧻</label>
+                        <input type="text" name="reposicao_banho" class="input-base">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Mimos Especiais? 🍬</label>
+                        <input type="text" name="reposicao_mimos" class="input-base">
+                    </div>
                 </div>
 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Ao final, sempre faço um vídeo de “Prova de Limpeza” para te blindar contra falsas reclamações. Tem algum detalhe que algum hóspede já usou no passado para pedir desconto e que você quer que eu foque na filmagem para sua tranquilidade?</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Algum foco específico para o vídeo de prova de limpeza?</label>
                     <textarea name="foco_video" rows="2" class="input-base"></textarea>
                 </div>
 
                 <div class="group">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Para fecharmos a solicitação: deseja acrescentar alguma observação importante ou pedido especial para essa limpeza que ainda não conversamos? Pode me falar que dependendo do que for eu tento verificar! 😉✨</label>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Observações importantes ou pedidos especiais adicionais?✨</label>
                     <textarea name="obs_agendamento" rows="2" class="input-base"></textarea>
                 </div>
 
-                <button type="button" onclick="generateReport('agenda')" class="w-full btn-primary py-4 rounded-2xl mt-4 text-lg"> Gerar PDF</button>
+                <button type="button" onclick="executarAgendamentoInteligente()" class="w-full btn-primary py-4 rounded-2xl mt-4 text-lg">🚀 Verificar Agenda e Reservar</button>
             </form>
         </section>
     </main>
 
-    <!-- Menu Flutuante Expansível (FAB) -->
     <div id="bottom-nav" class="fixed bottom-6 right-4 sm:right-8 z-50 hidden flex-col items-end gap-3 pointer-events-none">
-        <!-- Opções Ocultas (que aparecem ao clicar no menu) -->
         <div id="fab-options" class="flex flex-col items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none origin-bottom">
             <button onclick="navigate('home')" id="nav-home" class="w-12 h-12 glass border border-teal-100 shadow-xl rounded-full flex flex-col items-center justify-center transition-all text-slate-400 hover:bg-teal-50 active:scale-95 pointer-events-auto relative group">
                 <span class="text-xl">🏠</span>
-                <span class="absolute right-14 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Início</span>
             </button>
             <button onclick="navigate('ficha')" id="nav-ficha" class="w-12 h-12 glass border border-teal-100 shadow-xl rounded-full flex flex-col items-center justify-center transition-all text-slate-400 hover:bg-teal-50 active:scale-95 pointer-events-auto relative group">
                 <span class="text-xl">📋</span>
-                <span class="absolute right-14 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Ficha</span>
             </button>
             <button onclick="navigate('agenda')" id="nav-agenda" class="w-12 h-12 glass border border-teal-100 shadow-xl rounded-full flex flex-col items-center justify-center transition-all text-slate-400 hover:bg-teal-50 active:scale-95 pointer-events-auto relative group">
                 <span class="text-xl">📅</span>
-                <span class="absolute right-14 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Agendar</span>
             </button>
         </div>
-        
-        <!-- Botão Principal de Toggle -->
-        <button onclick="toggleFab()" id="fab-main" class="w-14 h-14 bg-teal-600 text-white rounded-full shadow-2xl shadow-teal-600/30 flex items-center justify-center transition-transform duration-300 hover:scale-105 active:scale-95 pointer-events-auto relative">
-            <svg id="fab-icon-menu" class="w-6 h-6 absolute transition-all duration-300 opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        <button onclick="toggleFab()" id="fab-main" class="w-14 h-14 bg-teal-600 text-white rounded-full shadow-2xl flex items-center justify-center pointer-events-auto relative">
+            <svg id="fab-icon-menu" class="w-6 h-6 absolute transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             <svg id="fab-icon-close" class="w-6 h-6 absolute transition-all duration-300 opacity-0 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
     </div>
 
-    <!-- Modal de Carregamento & Sucesso (Estilo WhatsApp Share) -->
     <div id="loading-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex flex-col items-center justify-center p-6 text-white text-center">
         <div id="loading-state" class="flex flex-col items-center">
             <div class="w-14 h-14 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mb-6"></div>
-            <p class="font-bold text-xl">Processando dados...</p>
-            <p class="text-sm text-slate-300 mt-2">Formatando as informações</p>
+            <p class="font-bold text-xl">Consultando a agenda da Sandra...</p>
+            <p class="text-sm text-slate-300 mt-2">Aguarde um instante</p>
         </div>
         
-        <!-- Tela de Sucesso -->
         <div id="success-state" class="hidden flex-col items-center w-full max-w-sm">
-            <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg shadow-teal-500/30">✓</div>
-            <h3 class="text-2xl font-bold mb-2">Tudo Pronto!</h3>
+            <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">✓</div>
+            <h3 class="text-2xl font-bold mb-2">Horário Disponível! 🎉</h3>
             <div class="bg-white/10 text-white p-4 rounded-xl border border-white/20 w-full mb-6 text-sm backdrop-blur-md">
-                Clique abaixo para enviar os dados para a <strong>Sandra: (21) 96929-3505</strong>
+                O horário solicitado estava livre e já foi **pré-reservado como pendente** na agenda. Avise a Sandra agora mesmo!
             </div>
-            
-            <button id="btn-final-share" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 transition-transform active:scale-95" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
-                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0.16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.63 1.433h.005c6.554 0 11.89-5.335 11.893-11.892a11.826 11.826 0 00-3.483-8.417"/></svg>
-                Enviar por WhatsApp
-            </button>
-            <button id="btn-fallback-text" class="hidden w-full py-4 rounded-2xl font-bold text-lg shadow-xl bg-slate-800 text-white flex items-center justify-center gap-3 mb-4 transition-transform active:scale-95">
-                Enviar dados como Texto
-            </button>
-            <button onclick="closeModal()" class="text-slate-300 text-sm py-2 hover:text-white transition-colors">Voltar e editar</button>
-        </div>
-
-        <!-- Tela de Erro -->
-        <div id="error-state" class="hidden flex-col items-center w-full max-w-sm">
-            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg shadow-red-500/30">!</div>
-            <h3 class="text-2xl font-bold mb-2">Pequeno imprevisto</h3>
-            <p class="text-slate-300 text-sm mb-6">O seu navegador bloqueou o PDF. Não se preocupe, seus dados estão salvos!</p>
-            <button id="btn-error-text" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 transition-transform active:scale-95" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
-                Enviar dados como Texto
+            <button id="btn-final-share" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 text-white" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
+                💬 Enviar Confirmação por WhatsApp
             </button>
             <button onclick="closeModal()" class="text-slate-300 text-sm py-2 hover:text-white transition-colors">Voltar</button>
+        </div>
+
+        <div id="conflict-state" class="hidden flex-col items-center w-full max-w-sm">
+            <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">⚠️</div>
+            <h3 class="text-2xl font-bold mb-2">Horário Ocupado</h3>
+            <p id="conflict-msg" class="text-slate-300 text-sm mb-6">A Sandra já possui outro compromisso agendado nessa janela de tempo.</p>
+            <div class="bg-amber-500/10 text-amber-200 p-4 rounded-xl border border-amber-500/20 w-full mb-6 text-xs text-left">
+                💡 **Não se preocupe!** Você ainda pode chamar a Sandra no WhatsApp para tentar reajustar os horários ou solicitar um encaixe especial.
+            </div>
+            <button id="btn-conflict-share" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 text-white" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
+                💬 Negociar Encaixe no WhatsApp
+            </button>
+            <button onclick="closeModal()" class="text-slate-300 text-sm py-2 hover:text-white transition-colors">Voltar e alterar</button>
         </div>
     </div>
 
@@ -514,83 +474,38 @@
         const storageKey = 'sandra_app_data';
         let fabOpen = false;
 
+        // URL do Google Apps Script que você implantou como "Qualquer pessoa"
+        const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycbzQy_O8w9C03O2Sg3wH2t6Yj59RzK9wR7f3l4m/exec";
+        const TOKEN_SECRETO = "SenhaSuperSegura123!";
+
         window.onload = () => {
             loadSavedData();
             document.querySelectorAll('input, textarea, select').forEach(el => {
                 el.addEventListener('input', saveData);
-                if(el.tagName.toLowerCase() === 'textarea') {
-                    el.addEventListener('input', function() {
-                        this.style.height = 'auto';
-                        this.style.height = (this.scrollHeight) + 'px';
-                    });
-                    if(el.value) { el.style.height = 'auto'; el.style.height = (el.scrollHeight) + 'px'; }
-                }
             });
         };
 
-        // Função para abrir e fechar o Menu Flutuante (FAB)
         function toggleFab() {
             fabOpen = !fabOpen;
             const options = document.getElementById('fab-options');
             const iconMenu = document.getElementById('fab-icon-menu');
             const iconClose = document.getElementById('fab-icon-close');
-            
             if(fabOpen) {
                 options.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                options.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-                
-                iconMenu.classList.remove('opacity-100', 'rotate-0');
-                iconMenu.classList.add('opacity-0', 'rotate-90');
-                
-                iconClose.classList.remove('opacity-0', '-rotate-90');
-                iconClose.classList.add('opacity-100', 'rotate-0');
+                iconMenu.classList.add('opacity-0'); iconClose.classList.remove('opacity-0');
             } else {
                 options.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                options.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-                
-                iconMenu.classList.add('opacity-100', 'rotate-0');
-                iconMenu.classList.remove('opacity-0', 'rotate-90');
-                
-                iconClose.classList.add('opacity-0', '-rotate-90');
-                iconClose.classList.remove('opacity-100', 'rotate-0');
+                iconMenu.classList.remove('opacity-0'); iconClose.classList.add('opacity-0');
             }
         }
 
         function navigate(page) {
-            const screens = ['welcome-screen', 'ficha-module', 'agenda-module'];
-            screens.forEach(s => document.getElementById(s).classList.add('hidden'));
-            
-            // Mostra o container do FAB assim que sai da home original (caso queira que ele não apareça na capa, 
-            // mas aqui deixaremos visível para permitir voltar)
+            document.querySelectorAll('#welcome-screen, #ficha-module, #agenda-module').forEach(s => s.classList.add('hidden'));
             document.getElementById('bottom-nav').classList.remove('hidden');
-            document.getElementById('bottom-nav').classList.add('flex');
-
-            if(page === 'home') {
-                document.getElementById('welcome-screen').classList.remove('hidden');
-                updateNavIcons('home');
-            } else {
-                document.getElementById(`${page}-module`).classList.remove('hidden');
-                updateNavIcons(page);
-            }
-            
-            // Fecha o menu flutuante se estiver aberto após o clique
+            if(page === 'home') document.getElementById('welcome-screen').classList.remove('hidden');
+            else document.getElementById(`${page}-module`).classList.remove('hidden');
             if (fabOpen) toggleFab();
-            
             window.scrollTo(0,0);
-        }
-
-        function updateNavIcons(page) {
-            const btns = ['nav-home', 'nav-ficha', 'nav-agenda'];
-            btns.forEach(b => {
-                const el = document.getElementById(b);
-                if(el) {
-                    el.classList.remove('ring-2', 'ring-teal-500', 'bg-teal-50');
-                }
-            });
-            const active = document.getElementById(`nav-${page}`);
-            if(active) {
-                active.classList.add('ring-2', 'ring-teal-500', 'bg-teal-50');
-            }
         }
 
         function changeStep(n) {
@@ -598,15 +513,12 @@
             steps[currentStep-1].classList.add('hidden');
             currentStep += n;
             steps[currentStep-1].classList.remove('hidden');
-
             document.getElementById('prevBtn').classList.toggle('hidden', currentStep === 1);
             document.getElementById('nextBtn').classList.toggle('hidden', currentStep === totalSteps);
             document.getElementById('submitFicha').classList.toggle('hidden', currentStep !== totalSteps);
-            
             const percent = Math.round((currentStep / totalSteps) * 100);
             document.getElementById('progress-bar').style.width = `${percent}%`;
             document.getElementById('step-label').innerText = `Passo ${currentStep} de ${totalSteps}`;
-            document.getElementById('step-percent').innerText = `${percent}%`;
             window.scrollTo(0,0);
         }
 
@@ -623,24 +535,15 @@
                     document.getElementById('cidade').value = `${data.localidade || ''} - ${data.uf || ''}`;
                     saveData();
                 }
-            } catch(e) { console.error("CEP error"); }
+            } catch(e) {}
         }
 
         function saveData() {
             const formData = {};
-            const inputs = document.querySelectorAll('#form-ficha input, #form-ficha textarea, #form-ficha select, #form-agenda input, #form-agenda textarea, #form-agenda select');
-            inputs.forEach(input => {
-                if(input.type === 'checkbox') {
-                    if(!formData[input.name]) formData[input.name] = [];
-                    if(input.checked) formData[input.name].push(input.value);
-                } else { formData[input.name] = input.value; }
+            document.querySelectorAll('input, textarea, select').forEach(input => {
+                if(input.name) formData[input.name] = input.value;
             });
             localStorage.setItem(storageKey, JSON.stringify(formData));
-            
-            const indicator = document.getElementById('save-indicator');
-            indicator.style.opacity = '1';
-            clearTimeout(window.saveTimeout);
-            window.saveTimeout = setTimeout(() => indicator.style.opacity = '0', 2000);
         }
 
         function loadSavedData() {
@@ -649,292 +552,104 @@
             const data = JSON.parse(saved);
             Object.keys(data).forEach(key => {
                 const input = document.querySelector(`[name="${key}"]`);
-                if(!input) return;
-                if(input.type === 'checkbox') {
-                    const checks = document.querySelectorAll(`[name="${key}"]`);
-                    checks.forEach(c => c.checked = data[key] && data[key].includes(c.value));
-                } else { input.value = data[key]; }
+                if(input) input.value = data[key];
             });
-            if(data.tem_checkin === 'Sim') toggleCheckin('Sim');
-            if(data.tem_checkout === 'Sim') toggleCheckout('Sim');
         }
 
         function closeModal() {
             document.getElementById('loading-modal').classList.add('hidden');
-            document.getElementById('loading-state').classList.remove('hidden');
-            document.getElementById('success-state').classList.add('hidden');
-            document.getElementById('error-state').classList.add('hidden');
         }
 
-        const FICHA_CATEGORIAS = [
-            { titulo: "Identificação do Imóvel", campos: ['cep', 'rua', 'bairro', 'cidade', 'numero', 'complemento', 'edificio', 'proprietario', 'configuracao'] },
-            { titulo: "Equipamentos, Climatização e Materiais", campos: ['aspirador', 'materiais_basicos', 'produtos_instrucao', 'proibidos', 'ventiladores'] },
-            { titulo: "Quartos e Roupa de Cama", campos: ['guarda_enxoval', 'roupa_suja', 'montagem_camas'] },
-            { titulo: "Banheiros e Amenities", campos: ['amenities', 'toalhas_posicao'] },
-            { titulo: "Cozinha e Geladeira", campos: ['sobras_geladeira', 'equip', 'equip_outros', 'quantidades_louca', 'cozinha_extras'] },
-            { titulo: "Finalização e Detalhes", campos: ['sujeira_extrema', 'mimos', 'fechamento', 'lixo_descarte', 'obs_finais'] }
-        ];
-
-        const AGENDA_CATEGORIAS = [
-            { titulo: "Informações Gerais e Horários", campos: ['cliente_tipo', 'condominio_torre', 'data_limpeza', 'horario_limpeza', 'tem_checkout', 'horario_checkout', 'tem_checkin', 'horario_checkin', 'num_pessoas', 'teve_pet'] },
-            { titulo: "Acesso e Segurança", campos: ['entrada_metodo'] },
-            { titulo: "Enxoval e Preparação", campos: ['toalhas_reserva', 'camas_preparo'] },
-            { titulo: "Amenities e Mimos", campos: ['reposicao_banho', 'reposicao_mimos'] },
-            { titulo: "Notas Especiais e Detalhes de Limpeza", campos: ['foco_video', 'obs_agendamento'] }
-        ];
-
-        const labelsMap = {
-            'cep': 'CEP', 'rua': 'Logradouro', 'bairro': 'Bairro', 'cidade': 'Cidade/UF', 'numero': 'Nº', 'complemento': 'Complemento',
-            'edificio': 'Edifício/Condomínio', 'proprietario': 'Responsável', 'configuracao': 'Configuração do imóvel',
-            'aspirador': 'Aspirador / Voltagem', 'materiais_basicos': 'Vassoura/Rodo/Balde', 'produtos_instrucao': 'Instruções de Produtos',
-            'proibidos': ' PROIBIDO USAR', 'ventiladores': 'Ventiladores', 'guarda_enxoval': 'Onde guardar limpos',
-            'roupa_suja': 'Onde deixar sujos', 'montagem_camas': 'Padrão de camas', 'amenities': 'Amenities e Reposição',
-            'toalhas_posicao': 'Toalhas limpas', 'sobras_geladeira': 'Sobras na geladeira', 'sujeira_extrema': 'Acordo sobre Sujeira Extrema',
-            'equip': 'Eletrodomésticos', 'equip_outros': 'Outros Equipamentos', 'quantidades_louca': 'Quantidades (Pratos/Talheres)',
-            'cozinha_extras': 'Detalhes Extras', 'mimos': 'Localização Mimos', 'fechamento': 'Regras de Fechamento',
-            'lixo_descarte': 'Descarte do Lixo', 'obs_finais': 'Observações Gerais',
-            'cliente_tipo': 'Já tem Ficha?', 'condominio_torre': 'Condomínio e Apto', 'data_limpeza': 'Data Limpeza',
-            'horario_limpeza': 'Horário Limpeza', 'tem_checkin': 'Novos hóspedes hoje?', 'horario_checkin': 'Horário Check-in',
-            'tem_checkout': 'Hóspedes saem hoje?', 'horario_checkout': 'Horário de Check-out', 'teve_pet': 'Houve Pet na última reserva?',
-            'entrada_metodo': 'Como será a entrada?', 'num_pessoas': 'Qtd. Pessoas', 'toalhas_reserva': 'Toalhas Banho/Rosto',
-            'camas_preparo': 'Preparo de Camas/Cobertores', 'reposicao_banho': 'Reposição Banheiro', 'reposicao_mimos': 'Reposição Mimos',
-            'foco_video': 'Foco no Vídeo de Prova de Limpeza', 'obs_agendamento': 'Pedido Especial'
-        };
-
-        // Função de Fallback (Plano B) - Envia os dados como texto formatado direto no WhatsApp
-        function sendAsText(type) {
-            const formId = type === 'ficha' ? 'form-ficha' : 'form-agenda';
-            const formData = new FormData(document.getElementById(formId));
-            const categorias = type === 'ficha' ? FICHA_CATEGORIAS : AGENDA_CATEGORIAS;
+        // Envio simplificado da Ficha Técnica por texto para o WhatsApp
+        function submeterFichaTabela() {
+            const form = document.getElementById('form-ficha');
+            const data = new FormData(form);
+            const proprietario = data.get('proprietario') || 'Não informado';
+            const condominio = data.get('edificio') || 'Não informado';
             
-            let texto = `*NOVA SOLICITAÇÃO - SANDRA LIMPEZAS*\nTipo: ${type === 'ficha' ? 'Ficha do Imóvel' : 'Agendamento'}\n\n`;
-            
-            categorias.forEach(cat => {
-                let hasDataCat = false;
-                let catText = `*${cat.titulo.toUpperCase()}*\n`;
-                
-                cat.campos.forEach(campo => {
-                    let val = campo === 'equip' ? formData.getAll('equip').join(', ') : formData.get(campo);
-                    if(val && val.trim() !== "") {
-                        hasDataCat = true;
-                        if(campo === 'data_limpeza') val = new Date(val).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
-                        catText += `- ${labelsMap[campo] || campo}: ${val}\n`;
-                    }
-                });
-                
-                if(hasDataCat) texto += catText + '\n';
-            });
-            
-            const url = `https://wa.me/5521969293505?text=${encodeURIComponent(texto)}`;
-            window.open(url, '_blank');
+            const texto = `Oi Sandra! Acabei de preencher a Ficha Técnica do meu imóvel pelo seu site para o seu controle!\n\n🏢 *Imóvel:* ${condominio}\n👤 *Responsável:* ${proprietario}\n\nOs dados já foram catalogados. Obrigado! 😊`;
+            window.open(`https://wa.me/5521969293505?text=${encodeURIComponent(texto)}`, '_blank');
         }
 
-        async function generateReport(type) {
+        // MOTOR INTELIGENTE: Consulta a agenda, decide o fluxo e gera as mensagens dinâmicas
+        async function ejecutarAgendamentoInteligente() {
             const modal = document.getElementById('loading-modal');
             const loadState = document.getElementById('loading-state');
             const successState = document.getElementById('success-state');
-            const errorState = document.getElementById('error-state');
-            const fallbackTextBtn = document.getElementById('btn-fallback-text');
-            const errorTextBtn = document.getElementById('btn-error-text');
+            const conflictState = document.getElementById('conflict-state');
             
             modal.classList.remove('hidden');
             loadState.classList.remove('hidden');
             successState.classList.add('hidden');
-            errorState.classList.add('hidden');
+            conflictState.classList.add('hidden');
 
-            const formId = type === 'ficha' ? 'form-ficha' : 'form-agenda';
-            const formData = new FormData(document.getElementById(formId));
+            const form = document.getElementById('form-agenda');
+            const data = new FormData(form);
             
-            const dataGeracao = `Gerado em: ${new Date().toLocaleDateString('pt-BR')}`;
-            let pdfTitle = '';
-            let pdfSubtitle = '';
-
-            if(type === 'ficha') {
-                pdfTitle = 'Ficha Técnica do Imóvel';
-                pdfSubtitle = `Propriedade: ${formData.get('proprietario') || 'Não informada'}`;
-            } else {
-                pdfTitle = 'Solicitação de Serviço';
-                let checkinData = formData.get('data_limpeza') ? new Date(formData.get('data_limpeza')).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : '-';
-                let hrLimpeza = formData.get('horario_limpeza') || 'A combinar';
-                pdfSubtitle = `Data: ${checkinData} | Horário: ${hrLimpeza}`;
+            const apto = data.get('condominio_torre');
+            const dataLimpeza = data.get('data_limpeza');
+            const hInicio = data.get('hora_inicio');
+            const hFim = data.get('hora_fim');
+            
+            if(!dataLimpeza || !apto) {
+                alert("Por favor, preencha o nome do imóvel e a data desejada!");
+                modal.classList.add('hidden');
+                return;
             }
 
-            const docDefinition = {
-                pageSize: 'A4',
-                pageMargins: [40, 50, 40, 50],
-                styles: {
-                    header: { fontSize: 22, bold: true, color: '#0f172a', margin: [0, 0, 0, 4] },
-                    subheader: { fontSize: 12, bold: true, color: '#0d9488', margin: [0, 0, 0, 20] },
-                    alertBox: { fontSize: 10, bold: true, color: '#ef4444', alignment: 'center', margin: [0, 8, 0, 8] },
-                    categoryTitle: { fontSize: 14, bold: true, color: '#0d9488', margin: [0, 20, 0, 6] },
-                    fieldLabel: { fontSize: 9, bold: true, color: '#64748b', margin: [0, 0, 0, 3] },
-                    fieldValue: { fontSize: 11, color: '#0f172a', margin: [0, 0, 0, 12], lineHeight: 1.2 },
-                    fieldValueProibido: { fontSize: 11, bold: true, color: '#dc2626', margin: [0, 0, 0, 12], lineHeight: 1.2 },
-                    footerText: { fontSize: 9, color: '#94a3b8', alignment: 'center', margin: [0, 20, 0, 0] }
-                },
-                content: [
-                    {
-                        table: {
-                            widths: ['*'],
-                            body: [[{ text: 'DOCUMENTO VÁLIDO APENAS SE ENVIADO PARA SANDRA: (21) 96929-3505', style: 'alertBox' }]]
-                        },
-                        layout: {
-                            hLineWidth: function() { return 1.5; },
-                            vLineWidth: function() { return 1.5; },
-                            hLineColor: function() { return '#ef4444'; },
-                            vLineColor: function() { return '#ef4444'; },
-                            hLineStyle: function() { return {dash: {length: 4, space: 4}}; },
-                            vLineStyle: function() { return {dash: {length: 4, space: 4}}; }
-                        },
-                        margin: [0, 0, 0, 25]
-                    },
-                    {
-                        columns: [
-                            {
-                                width: '*',
-                                text: [
-                                    { text: pdfTitle + '\n', style: 'header' },
-                                    { text: pdfSubtitle, style: 'subheader' }
-                                ]
-                            },
-                            {
-                                width: 'auto',
-                                text: dataGeracao,
-                                alignment: 'right',
-                                color: '#64748b',
-                                fontSize: 10,
-                                margin: [0, 10, 0, 0]
-                            }
-                        ],
-                        margin: [0, 0, 0, 10]
-                    },
-                    {
-                        canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 2, lineColor: '#0d9488' }],
-                        margin: [0, 0, 0, 10]
-                    }
-                ],
-                footer: function(currentPage, pageCount) {
-                    return {
-                        text: 'Documento gerado digitalmente para garantir o padrão de qualidade e hospitalidade. Página ' + currentPage.toString() + ' de ' + pageCount,
-                        style: 'footerText'
-                    };
-                }
+            // Formatação de data padrão Brasil
+            const dataBr = dataLimpeza.split('-').reverse().join('/');
+            const horarioTxt = `das ${hInicio} às ${hFim}`;
+
+            // Criação das strings RFC3339 necessárias para a API do calendário
+            const isoInicio = `${dataLimpeza}T${hInicio}:00`;
+            const isoFim = `${dataLimpeza}T${hFim}:00`;
+
+            const payload = {
+                "token": TOKEN_SECRETO,
+                "tipo": "limpeza",
+                "apto": apto,
+                "data_inicio": isoInicio,
+                "data_fim": isoFim,
+                "data_br": dataBr,
+                "horario_formatado": horarioTxt,
+                "detalhes": `Acesso: ${data.get('entrada_metodo')}\nCamas: ${data.get('camas_preparo')}\nNotas: ${data.get('obs_agendamento')}`
             };
 
-            const categorias = type === 'ficha' ? FICHA_CATEGORIAS : AGENDA_CATEGORIAS;
-
             try {
-                categorias.forEach(cat => {
-                    let catFieldsHtml = [];
-                    let currentRow = [];
-                    let hasData = false;
-
-                    cat.campos.forEach(campo => {
-                        let val = '';
-                        if(campo === 'equip') {
-                            val = formData.getAll('equip').join(', ');
-                        } else if(campo === 'data_limpeza') {
-                             val = formData.get(campo) ? new Date(formData.get(campo)).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : '';
-                        } else {
-                            val = formData.get(campo);
-                        }
-                        
-                        // FIX CRÍTICO: Garantir que 'val' seja sempre uma String para evitar que o .replace quebre a página
-                        val = val ? String(val) : '';
-                        
-                        if(val.trim() !== "") {
-                            hasData = true;
-                            const isLongText = val.length > 50 || campo === 'equip' || campo === 'montagem_camas';
-                            const styleName = campo === 'proibidos' ? 'fieldValueProibido' : 'fieldValue';
-                            const labelText = (labelsMap[campo] || campo).toUpperCase();
-                            
-                            const block = [
-                                { text: labelText, style: 'fieldLabel' },
-                                { text: val.replace(/\n/g, '\n'), style: styleName }
-                            ];
-
-                            if (isLongText) {
-                                if (currentRow.length > 0) {
-                                    catFieldsHtml.push({ columns: currentRow, columnGap: 20 });
-                                    currentRow = [];
-                                }
-                                catFieldsHtml.push({ stack: block, margin: [0, 0, 0, 5] });
-                            } else {
-                                currentRow.push({ stack: block, width: '*' });
-                                if (currentRow.length === 2) {
-                                    catFieldsHtml.push({ columns: currentRow, columnGap: 20 });
-                                    currentRow = [];
-                                }
-                            }
-                        }
-                    });
-
-                    if (currentRow.length > 0) {
-                        currentRow.push({ text: '', width: '*' });
-                        catFieldsHtml.push({ columns: currentRow, columnGap: 20 });
-                    }
-
-                    if(hasData) {
-                        docDefinition.content.push({ text: cat.titulo, style: 'categoryTitle' });
-                        docDefinition.content.push({
-                            canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1, lineColor: '#e2e8f0' }],
-                            margin: [0, 0, 0, 12]
-                        });
-                        docDefinition.content = docDefinition.content.concat(catFieldsHtml);
-                    }
+                const response = await fetch(URL_WEBHOOK_GOOGLE, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
                 });
+                const resultado = await response.json();
 
-                await new Promise(r => setTimeout(r, 600));
-
-                // Bloco Try/Catch reforçado dentro da geração do Blob
-                pdfMake.createPdf(docDefinition).getBlob(async (blob) => {
-                    try {
-                        const file = new File([blob], `Sandra_${type}_${Date.now()}.pdf`, { type: 'application/pdf' });
-                        
-                        loadState.classList.add('hidden');
-                        successState.classList.remove('hidden');
-
-                        // Configura os botões de fallback
-                        fallbackTextBtn.onclick = () => sendAsText(type);
-                        errorTextBtn.onclick = () => sendAsText(type);
-
-                        document.getElementById('btn-final-share').onclick = async () => {
-                            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                                try {
-                                    await navigator.share({
-                                        files: [file],
-                                        title: `Documento Sandra - ${type.toUpperCase()}`,
-                                        text: `Olá Sandra! Segue o meu documento gerado em PDF.\n*Documento válido apenas se enviado para (21) 96929-3505*`
-                                    });
-                                } catch (err) {
-                                    console.log("Compartilhamento cancelado", err);
-                                    // Se o usuário apenas cancelar, não fazemos nada. Se o sistema negar, exibimos o fallback.
-                                    fallbackTextBtn.classList.remove('hidden');
-                                }
-                            } else {
-                                // Para navegadores que bloqueiam o Share (Webview, PC)
-                                try {
-                                    const link = document.createElement('a');
-                                    link.download = `Sandra_Documento_${type}.pdf`;
-                                    link.href = URL.createObjectURL(blob);
-                                    link.click();
-                                    alert("O PDF foi salvo no seu dispositivo! Anexe ele na conversa do WhatsApp para enviar.");
-                                } catch(downloadErr) {
-                                    // Bloqueio de download do iOS detectado
-                                    fallbackTextBtn.classList.remove('hidden');
-                                    alert("Seu navegador bloqueou o download do arquivo. Clique no botão de enviar como texto.");
-                                }
-                            }
-                        };
-                    } catch(blobErr) {
-                        throw blobErr; // Envia para o catch principal
-                    }
-                });
-            } catch (err) {
-                console.error("Erro Crítico ao gerar PDF", err);
                 loadState.classList.add('hidden');
-                errorState.classList.remove('hidden');
-                errorTextBtn.onclick = () => sendAsText(type);
+
+                if (resultado.status === "sucesso") {
+                    successState.classList.remove('hidden');
+                    
+                    const msgSucesso = `Oi Sandra! Usei o seu site para solicitar uma limpeza.\n\n🏢 *Imóvel:* ${apto}\n📅 *Data:* ${dataBr}\n⏰ *Horário:* ${horarioTxt}\n\nO site me avisou que seu horário estava livre e já registrou o pedido como pendente na sua agenda. Se estiver tudo certinho, me avise por favor! 😊`;
+                    document.getElementById('btn-final-share').onclick = () => {
+                        window.open(`https://wa.me/5521969293505?text=${encodeURIComponent(msgSucesso)}`, '_blank');
+                    };
+                } else if (resultado.status === "conflito") {
+                    conflictState.classList.remove('hidden');
+                    document.getElementById('conflict-msg').innerText = `A Sandra já possui outro compromisso agendado no dia ${dataBr} das ${hInicio} às ${hFim}.`;
+                    
+                    const msgConflito = `Oi Sandra, tudo bem? Tentei solicitar uma limpeza para o imóvel ${apto} no dia ${dataBr} ${horarioTxt}.\n\nO site me informou que você já tem um compromisso agendado exatamente nessa janela de tempo, mas gostaria de ver com você se existe alguma possibilidade de encaixe ou troca. Seria possível?`;
+                    document.getElementById('btn-conflict-share').onclick = () => {
+                        window.open(`https://wa.me/5521969293505?text=${encodeURIComponent(msgConflito)}`, '_blank');
+                    };
+                } else {
+                    alert("Erro do Servidor: " + resultado.mensagem);
+                    modal.classList.add('hidden');
+                }
+
+            } catch (err) {
+                console.error(err);
+                loadState.classList.add('hidden');
+                alert("Não foi possível conectar ao sistema. Verifique sua conexão e tente novamente.");
+                modal.classList.add('hidden');
             }
         }
     </script>
