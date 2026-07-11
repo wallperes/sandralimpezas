@@ -439,6 +439,7 @@
         </button>
     </div>
 
+    <!-- MODAL REESTRUTURADO: Textos inseridos dentro de um super-botão -->
     <div id="loading-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex flex-col items-center justify-center p-6 text-white text-center">
         <div id="loading-state" class="flex flex-col items-center">
             <div class="w-14 h-14 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mb-6"></div>
@@ -447,26 +448,36 @@
         </div>
         
         <div id="success-state" class="hidden flex-col items-center w-full max-w-sm">
-            <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">✓</div>
-            <h3 class="text-2xl font-bold mb-2">Tudo Pronto! 🎉</h3>
-            <div class="bg-white/10 text-white p-4 rounded-xl border border-white/20 w-full mb-6 text-sm backdrop-blur-md">
-                Ação concluída com sucesso.
-            </div>
-            <button id="btn-final-share" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 text-white" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
-                💬 Enviar Confirmação por WhatsApp
+            <button id="btn-final-share" class="w-full text-left p-6 rounded-3xl shadow-2xl flex flex-col gap-3 mb-4 text-white transition-transform active:scale-95 border border-white/20" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0">✓</div>
+                    <h3 id="success-title" class="text-xl font-bold leading-tight">Tudo Pronto! 🎉</h3>
+                </div>
+                <p id="success-msg" class="text-sm font-medium text-white/90 leading-relaxed">
+                    Ação concluída com sucesso.
+                </p>
+                <div class="mt-2 py-3 px-4 bg-white/20 rounded-xl text-center font-bold flex items-center justify-center gap-2 shadow-inner">
+                    💬 Enviar pelo WhatsApp
+                </div>
             </button>
             <button onclick="closeModal()" class="text-slate-300 text-sm py-2 hover:text-white transition-colors">Voltar</button>
         </div>
 
         <div id="conflict-state" class="hidden flex-col items-center w-full max-w-sm">
-            <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">⚠️</div>
-            <h3 class="text-2xl font-bold mb-2">Horário Ocupado</h3>
-            <p id="conflict-msg" class="text-slate-300 text-sm mb-6">A Sandra já possui outro compromisso agendado nessa janela de tempo.</p>
-            <div class="bg-amber-500/10 text-amber-200 p-4 rounded-xl border border-amber-500/20 w-full mb-6 text-xs text-left">
-                💡 **Não se preocupe!** Você ainda pode chamar a Sandra no WhatsApp para tentar reajustar os horários ou solicitar um encaixe especial.
-            </div>
-            <button id="btn-conflict-share" class="w-full py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3 mb-4 text-white" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
-                💬 Negociar Encaixe no WhatsApp
+            <button id="btn-conflict-share" class="w-full text-left p-6 rounded-3xl shadow-2xl flex flex-col gap-3 mb-4 text-white transition-transform active:scale-95 border border-white/20" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl shrink-0">⚠️</div>
+                    <h3 id="conflict-title" class="text-xl font-bold leading-tight">Horário Ocupado</h3>
+                </div>
+                <p id="conflict-msg" class="text-sm font-medium text-white/90 leading-relaxed">
+                    A Sandra já possui outro compromisso agendado nessa janela de tempo.
+                </p>
+                <div class="bg-black/10 p-3 rounded-lg text-xs leading-relaxed">
+                    💡 O evento foi salvo na agenda mesmo assim para uma tentativa de encaixe.
+                </div>
+                <div class="mt-2 py-3 px-4 bg-white/20 rounded-xl text-center font-bold flex items-center justify-center gap-2 shadow-inner">
+                    💬 Negociar Encaixe
+                </div>
             </button>
             <button onclick="closeModal()" class="text-slate-300 text-sm py-2 hover:text-white transition-colors">Voltar e alterar</button>
         </div>
@@ -478,7 +489,6 @@
         const storageKey = 'sandra_app_data';
         let fabOpen = false;
 
-        // SE VOCE GEROU UMA NOVA URL NO GOOGLE APPS SCRIPT, COLOQUE AQUI:
         const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycbxqW7WZmU67I-WtuR3eiUJIZIxKvVQ_HHIZfJU8m_Xdr3B_gSeWDWZBaZGOglP7p1-M/exec";
         const TOKEN_SECRETO = "SenhaSuperSegura123!";
 
@@ -584,10 +594,9 @@
             const proprietario = data.get('proprietario') || 'Não informado';
             const condominio = data.get('edificio') || 'Não informado';
             
-            // Pega o valor de todas as perguntas em ordem para gerar 30 colunas na planilha
             const nomesCampos = ['cep', 'rua', 'bairro', 'cidade', 'numero', 'complemento', 'edificio', 'proprietario', 'configuracao', 'aspirador', 'materiais_basicos', 'produtos_instrucao', 'proibidos', 'ventiladores', 'guarda_enxoval', 'roupa_suja', 'montagem_camas', 'amenities', 'toalhas_posicao', 'sobras_geladeira', 'equip', 'equip_outros', 'quantidades_louca', 'cozinha_extras', 'sujeira_extrema', 'mimos', 'fechamento', 'lixo_descarte', 'obs_finais'];
             
-            const valoresPlanilha = [new Date().toLocaleString('pt-BR')]; // Coluna A (Data do registro)
+            const valoresPlanilha = [new Date().toLocaleString('pt-BR')]; 
             
             nomesCampos.forEach(nome => {
                 if (nome === 'equip') {
@@ -614,8 +623,10 @@
 
                 if (resultado.status === "sucesso") {
                     successState.classList.remove('hidden');
-                    document.querySelector('#success-state h3').innerText = "Ficha Salva! 🎉";
-                    document.querySelector('#success-state div').innerHTML = "A ficha do seu imóvel foi <strong>catalogada com sucesso</strong> na base de dados da Sandra!";
+                    
+                    // ATUALIZA O CARD DE SUCESSO
+                    document.getElementById('success-title').innerText = "Ficha Salva! 🎉";
+                    document.getElementById('success-msg').innerHTML = "A ficha do seu imóvel foi <strong>catalogada com sucesso</strong> na base de dados da Sandra!";
 
                     const texto = `Oi Sandra! Acabei de preencher a Ficha Técnica do meu imóvel pelo seu site para o seu controle!\n\n🏢 *Imóvel:* ${condominio}\n👤 *Responsável:* ${proprietario}\n\nOs dados já foram catalogados na sua planilha. Obrigado! 😊`;
                     
@@ -671,7 +682,6 @@
             const isoInicio = `${dataLimpeza}T${hInicio}:00`;
             const isoFim = `${dataLimpeza}T${hFim}:00`;
 
-            // Construção do bloco de detalhes completo que vai pro Google Calendar
             const detalhesFormatados = `
 ** INFORMAÇÕES GERAIS **
 Tipo de Cliente: ${data.get('cliente_tipo') || '-'}
@@ -715,8 +725,10 @@ Pedidos Extras: ${data.get('obs_agendamento') || '-'}
 
                 if (resultado.status === "sucesso") {
                     successState.classList.remove('hidden');
-                    document.querySelector('#success-state h3').innerText = "Horário Disponível! 🎉";
-                    document.querySelector('#success-state div').innerHTML = "O horário solicitado estava livre e já foi pré-reservado como pendente na agenda. Avise a Sandra agora mesmo!";
+                    
+                    // ATUALIZA O CARD DE SUCESSO
+                    document.getElementById('success-title').innerText = "Horário Disponível! 🎉";
+                    document.getElementById('success-msg').innerHTML = "O horário solicitado estava livre e já foi pré-reservado como pendente na agenda. <strong>Avise a Sandra agora mesmo!</strong>";
                     
                     const msgSucesso = `Oi Sandra! Usei o seu site para solicitar uma limpeza.\n\n🏢 *Imóvel:* ${apto}\n📅 *Data:* ${dataBr}\n⏰ *Horário:* ${horarioTxt}\n\nO site me avisou que seu horário estava livre e já registrou o pedido como pendente na sua agenda. Se estiver tudo certinho, me avise por favor! 😊`;
                     document.getElementById('btn-final-share').onclick = () => {
@@ -724,6 +736,8 @@ Pedidos Extras: ${data.get('obs_agendamento') || '-'}
                     };
                 } else if (resultado.status === "conflito") {
                     conflictState.classList.remove('hidden');
+                    
+                    // ATUALIZA O CARD DE CONFLITO
                     document.getElementById('conflict-msg').innerText = `A Sandra já possui outro compromisso agendado no dia ${dataBr} das ${hInicio} às ${hFim}.`;
                     
                     const msgConflito = `Oi Sandra, tudo bem? Tentei solicitar uma limpeza para o imóvel ${apto} no dia ${dataBr} ${horarioTxt}.\n\nO site me informou que você já tem um compromisso agendado exatamente nessa janela de tempo, mas gostaria de ver com você se existe alguma possibilidade de encaixe ou troca. Seria possível?`;
