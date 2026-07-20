@@ -309,6 +309,15 @@
         <section id="agenda-module" class="hidden animate-fade-in">
             <h3 class="text-xl font-title text-slate-800 mb-5 px-1">Solicitação de Limpeza 📅</h3>
             
+            <!-- QUADRO NOVO: LIMITE DA AGENDA -->
+            <div class="mb-6 bg-teal-50 p-5 rounded-3xl shadow-sm border border-teal-200 text-center">
+                <span class="text-3xl block mb-2">📅</span>
+                <h4 class="font-bold text-teal-800 text-lg mb-1">Abertura de Agenda</h4>
+                <p id="msg-limite-agenda" class="text-teal-700 text-sm leading-relaxed">
+                    Calculando limite de agendamento...
+                </p>
+            </div>
+
             <div class="mb-6 bg-white p-2 rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="px-3 py-3 bg-slate-50 rounded-t-2xl mb-2 border-b border-slate-100">
                     <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Disponibilidade na Agenda</p>
@@ -342,22 +351,39 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div class="group">
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Qual é a data gostaria de reservar? 🗓️</label>
-                        <input type="date" name="data_limpeza" class="input-base text-slate-600">
+                        <!-- Agora recebe a limitação via JS -->
+                        <input type="date" name="data_limpeza" class="input-base text-slate-600" required>
                     </div>
                     <div class="group">
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Qual o horário de Início? 🕒</label>
                         <select name="hora_inicio" class="input-base bg-white">
-                            <option value="08:00">08:00</option><option value="09:00">09:00</option><option value="10:00">10:00</option>
-                            <option value="11:00" selected>11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option>
-                            <option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00" selected>11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
                         </select>
                     </div>
                     <div class="group">
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Qual o horário de Fim? 🕒</label>
                         <select name="hora_fim" class="input-base bg-white">
-                            <option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option>
-                            <option value="13:00">13:00</option><option value="14:00" selected>14:00</option><option value="15:00">15:00</option>
-                            <option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00" selected>14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
                         </select>
                     </div>
                 </div>
@@ -462,6 +488,7 @@
         </button>
     </div>
 
+    <!-- MODAL REESTRUTURADO -->
     <div id="loading-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex flex-col items-center justify-center p-6 text-white text-center">
         <div id="loading-state" class="flex flex-col items-center">
             <div class="w-14 h-14 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mb-6"></div>
@@ -514,7 +541,45 @@
         const URL_WEBHOOK_GOOGLE = "https://script.google.com/macros/s/AKfycbxqW7WZmU67I-WtuR3eiUJIZIxKvVQ_HHIZfJU8m_Xdr3B_gSeWDWZBaZGOglP7p1-M/exec";
         const TOKEN_SECRETO = "SenhaSuperSegura123!";
 
+        // FORMATADOR DE DATAS NATIVO (Garante YYYY-MM-DD no fuso local)
+        function formatarDataIsoLocal(dataObj) {
+            const ano = dataObj.getFullYear();
+            const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+            const dia = String(dataObj.getDate()).padStart(2, '0');
+            return `${ano}-${mes}-${dia}`;
+        }
+
+        // CÁLCULO E APLICAÇÃO DOS LIMITES DA AGENDA
+        function configurarLimitesAgenda() {
+            const hoje = new Date();
+            const ano = hoje.getFullYear();
+            const mes = hoje.getMonth();
+            
+            // Lógica: mês atual + 3 com dia "0" retorna o ÚLTIMO dia do mês 2 meses para frente
+            const dataMax = new Date(ano, mes + 3, 0); 
+            
+            // Salva na memória global para validar na hora de enviar
+            window.dataLimiteAgenda = dataMax;
+
+            // Arruma a data para a mensagem visual (Ex: 30 de setembro de 2026)
+            const opcoesTexto = { day: 'numeric', month: 'long', year: 'numeric' };
+            const textoMax = dataMax.toLocaleDateString('pt-BR', opcoesTexto);
+            
+            document.getElementById('msg-limite-agenda').innerHTML = `A agenda está aberta para pré-agendamentos até <strong>${textoMax}</strong>.`;
+
+            // Aplica os limites físicos no input do calendário
+            const minIso = formatarDataIsoLocal(hoje);
+            const maxIso = formatarDataIsoLocal(dataMax);
+            
+            const inputData = document.querySelector('input[name="data_limpeza"]');
+            if(inputData) {
+                inputData.min = minIso;
+                inputData.max = maxIso;
+            }
+        }
+
         window.onload = () => {
+            configurarLimitesAgenda();
             loadSavedData();
             document.querySelectorAll('input, textarea, select').forEach(el => {
                 el.addEventListener('input', saveData);
@@ -613,7 +678,6 @@
             document.getElementById('loading-modal').classList.add('hidden');
         }
 
-        // SALVA TODOS OS CAMPOS NA PLANILHA
         async function submeterFichaTabela() {
             const modal = document.getElementById('loading-modal');
             const loadState = document.getElementById('loading-state');
@@ -684,21 +748,12 @@
             }
         }
 
-        // SALVA NA AGENDA COM TODAS AS RESPOSTAS DENTRO DO EVENTO
         async function executarAgendamentoInteligente() {
             const modal = document.getElementById('loading-modal');
             const loadState = document.getElementById('loading-state');
             const successState = document.getElementById('success-state');
             const conflictState = document.getElementById('conflict-state');
             
-            modal.classList.remove('hidden');
-            loadState.classList.remove('hidden');
-            successState.classList.add('hidden');
-            conflictState.classList.add('hidden');
-
-            document.querySelector('#loading-state p').innerText = "Consultando a agenda da Sandra...";
-            document.querySelector('#loading-state .text-slate-300').innerText = "Aguarde um instante";
-
             const form = document.getElementById('form-agenda');
             const data = new FormData(form);
             
@@ -710,9 +765,33 @@
             
             if(!dataLimpeza || !apto) {
                 alert("Por favor, preencha o nome do imóvel e a data desejada!");
-                modal.classList.add('hidden');
                 return;
             }
+
+            // ==========================================
+            // VALIDAÇÃO DUPLA DA AGENDA (Evita datas bloqueadas)
+            // ==========================================
+            const dataEscolhidaObj = new Date(dataLimpeza + "T12:00:00"); 
+            const hojeBase = new Date();
+            hojeBase.setHours(0,0,0,0);
+
+            if (dataEscolhidaObj < hojeBase) {
+                alert("Nenhuma reserva foi feita. Não é possível realizar pré-agendamentos em datas que já passaram.");
+                return;
+            }
+
+            if (window.dataLimiteAgenda && dataEscolhidaObj > window.dataLimiteAgenda) {
+                alert(`Nenhuma reserva foi feita.\n\nA data selecionada não está disponível. A agenda de pré-agendamentos encontra-se aberta apenas até o dia ${window.dataLimiteAgenda.toLocaleDateString('pt-BR')}.`);
+                return;
+            }
+            
+            modal.classList.remove('hidden');
+            loadState.classList.remove('hidden');
+            successState.classList.add('hidden');
+            conflictState.classList.add('hidden');
+
+            document.querySelector('#loading-state p').innerText = "Consultando a agenda da Sandra...";
+            document.querySelector('#loading-state .text-slate-300').innerText = "Aguarde um instante";
 
             const dataBr = dataLimpeza.split('-').reverse().join('/');
             const horarioTxt = `das ${hInicio} às ${hFim}`;
@@ -720,7 +799,6 @@
             const isoInicio = `${dataLimpeza}T${hInicio}:00`;
             const isoFim = `${dataLimpeza}T${hFim}:00`;
 
-            // Lógica de formatação para exibir o horário se ele for preenchido
             const strCheckout = data.get('horario_checkout') ? ` - Horário: ${data.get('horario_checkout')}` : '';
             const strCheckin = data.get('horario_checkin') ? ` - Horário: ${data.get('horario_checkin')}` : '';
 
